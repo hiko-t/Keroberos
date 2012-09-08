@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/btn_resolve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/btn_resolve" />
+
+    <Spinner
+        android:id="@+id/score_spiner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_resolve"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/first_throw_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_throw"
+            android:textSize="@dimen/darts" />
+
+        <TextView
+            android:id="@+id/second_throw_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/second_throw"
+            android:textSize="@dimen/darts" />
+
+        <TextView
+            android:id="@+id/third_throw_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/third_throw"
+            android:textSize="@dimen/darts" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/round_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/round_count"
+        android:textSize="@dimen/round_count" />
+
+    <RadioGroup
+        android:id="@+id/scale_facter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/score_spiner"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rbtn_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/single"
+            android:layout_weight="0.33" />
+
+        <RadioButton
+            android:id="@+id/rbtn_double"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/twice"
+            android:layout_weight="0.33" />
+
+        <RadioButton
+            android:id="@+id/rbtn_triple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/triple"
+            android:layout_weight="0.33" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/total_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/total_score"
+        android:textSize="@dimen/total_score" />
+
+</RelativeLayout>

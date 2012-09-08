@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="darts">30dp</dimen>
+    <dimen name="total_score">80dp</dimen>
+    <dimen name="round_count">50dp</dimen>
+</resources>

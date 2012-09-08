@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="app_name">Keroberos</string>
+    <string name="title_activity_input">InputActivity</string>
+    <string name="title_activity_play">Keroberos</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- TextView -->
+    <string name="first_throw">20T</string>
+    <string name="second_throw">20T</string>
+    <string name="third_throw">20T</string>
+    <string name="total_score">000</string>
+    <string name="round_count">1/8</string>
+
+    <!-- Button -->
+    <string name="btn_next">NEXT</string>
+    <string name="btn_start">START</string>
+    <string name="btn_resolve">RESOLVE</string>
+
+    <!-- RadioButton -->
+    <string name="single">Single</string>
+    <string name="twice">Double</string>
+    <string name="triple">Triple</string>
+
+    <!-- 定数 -->
+    <string name="KEY_THROWS">throws</string>
+    <string name="KEY_ROUNDS">rounds</string>
+
+</resources>
