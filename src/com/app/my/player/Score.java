@@ -1,11 +1,16 @@
 package com.app.my.player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
 
-public class Score {
+public class Score implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String TAG = "Score";
 	private List<String> throwValues;
 	private int total_score;
@@ -45,6 +50,10 @@ public class Score {
 
 		return list;
 
+	}
+
+	public void clearThrowValues() {
+		throwValues =new ArrayList<String>();
 	}
 
 	private int exchangeScaleFacter(String string_num) {

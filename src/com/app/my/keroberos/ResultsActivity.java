@@ -35,6 +35,8 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 	private static final int THROW_COUNT_MAX = 3;
 	private static final int ROUND_COUNT_MAX = 8;
 	private static final String KEY_ROUNDS = "rounds";
+	private static final String KEY_SCORES = "scores";
+
 
 	private Player player;
 	private Handler guiHandler;
@@ -125,6 +127,7 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 
 			if (throwCounter.isMax()) {
 				Intent intent = makeIntent(KEY_ROUNDS);
+				intent.putExtra(KEY_SCORES, score);
 				startActivity(intent);
 			}
 		}
