@@ -1,21 +1,21 @@
 package com.app.my.player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.util.Log;
-import android.widget.TextView;
 
 public class Score {
 	private static final String TAG = "Score";
-	private String firstThrow;
-	private String secondThrow;
-	private String thirdThrow;
+	private List<String> throwValues;
 	private int total_score;
 
-//	public void setTextView(String text, TextView text_view) {
-//		add(text);
-//		text_view.setText(total_score);
-//	}
+	public Score() {
+		throwValues =new ArrayList<String>();
+	}
 
-	public int add(String value_s) {
+	public int addTotal(String value_s) {
+		throwValues.add(value_s);
 		int value = analyzedValue(value_s);
 		total_score += value;
 		return total_score;
@@ -30,6 +30,21 @@ public class Score {
 		int result = num * scaleFacter;
 		Log.d(TAG, numString + " * " + String.valueOf(scaleFacter) + " = " + String.valueOf(result));
 		return result;
+	}
+
+	public List<String> getScores() {
+		List<String> list = new ArrayList<String>();
+
+		String total_score_s = String.valueOf(total_score);
+		list.add(total_score_s);
+
+		for (int i = 0; i < throwValues.size(); i++ ) {
+			String value = throwValues.get(i);
+			list.add(value);
+		}
+
+		return list;
+
 	}
 
 	private int exchangeScaleFacter(String string_num) {

@@ -105,33 +105,55 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 	}
 
 	@Override
-	public void onClick(View arg0) {
+	public void onClick(View v) {
 		Log.d(TAG, "onClick");
+		Button button = (Button)findViewById(id.btn_resolve);
 
-		String str = getSpinnerItem() + "-" + getRadioGroupSelected();
-		int value = score.analyzedValue(str);
-		int total = score.add(str);
-		String totalString = String.valueOf(total);
+		if (v.getId() == id.btn_resolve) {
 
-		TextView totalScore = (TextView)findViewById(id.total_score);
-		TextView firstThrow = (TextView)findViewById(id.first_throw_txt);
+			String str = getSpinnerItem() + "-" + getRadioGroupSelected();
+			int value = score.analyzedValue(str);
+			int total = score.addTotal(str);
+			String totalString = String.valueOf(total);
 
+			TextView totalScore = (TextView)findViewById(id.total_score);
 
-		setText(totalString, totalScore);
-		setText(String.valueOf(value), firstThrow);
-		throwCounter.add();
+			setText(totalString, totalScore);
 
-		if (throwCounter.isMax()) {
-			Intent intent = makeIntent(KEY_ROUNDS);
-//			startActivity(intent);
+			int count = throwCounter.add();
+			setThrowText(value, count);
+
+			if (throwCounter.isMax()) {
+				Intent intent = makeIntent(KEY_ROUNDS);
+				startActivity(intent);
+			}
 		}
-
 	}
 
 	private void setText(final String text, TextView textView) {
 
 		Runnable runnable = new MyRunnable(textView, text);
 		guiHandler.post(runnable);
+	}
+
+	private void setThrowText(int value, int count) {
+		String valueStr = String.valueOf(value);
+		int value_id = 0;
+
+		if (count == 1) {
+			value_id = id.first_throw_txt;
+		}
+
+		if ( count == 2 ) {
+			value_id = id.second_throw_txt;
+		}
+
+		if ( count == 3 ) {
+			value_id = id.third_throw_txt;
+		}
+
+		TextView textView = (TextView)findViewById(value_id);
+		setText(valueStr, textView);
 	}
 
 	private String getRadioGroupSelected() {

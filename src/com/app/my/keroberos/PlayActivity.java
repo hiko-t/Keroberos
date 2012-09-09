@@ -2,6 +2,7 @@ package com.app.my.keroberos;
 
 
 
+import com.app.my.keroberos.R.id;
 import com.app.my.player.Counter;
 import com.app.my.util.MyActivity;
 
@@ -38,8 +39,11 @@ public class PlayActivity extends MyActivity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		Log.d(TAG, "onClick");
-		Intent intent = makeIntent(KEY_ROUNDS);
-//		startActivity(intent);
+
+		if (v.getId() == id.btn_next) {
+			Intent intent = makeIntent(KEY_ROUNDS);
+		startActivity(intent);
+		}
 	}
 
 	private Intent makeIntent(String key) {

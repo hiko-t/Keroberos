@@ -25,9 +25,10 @@ public class Counter implements Serializable{
 		count = 0;
 	}
 
-	public void add() {
+	public int add() {
 		count += 1;
 		Log.d(TAG, String.valueOf(count) + "/" + String.valueOf(max_count));
+		return count;
 	}
 
 	public boolean isMax() {
