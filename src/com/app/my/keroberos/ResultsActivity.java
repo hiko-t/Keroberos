@@ -30,7 +30,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class ResultsActivity extends MyActivity implements OnClickListener, OnCheckedChangeListener, OnItemSelectedListener{
-
 	private static final String TAG = "InputActivity";
 	private static final int THROW_COUNT_MAX = 3;
 	private static final int ROUND_COUNT_MAX = 8;
@@ -53,6 +52,13 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 		guiHandler = new Handler();
 		throwCounter = new Counter(THROW_COUNT_MAX);
 		score = new Score();
+		Counter roundCount = (Counter) getPrevCount(KEY_ROUNDS, ROUND_COUNT_MAX);
+		String roundStr = roundCount.toString();
+		TextView roundCountView = (TextView)findViewById(id.round_count);
+		roundCountView.setText(roundStr);
+
+		Intent intent = getIntent();
+		score = setTextTotalScore(intent, KEY_SCORES);
 
 		// ボタンを生成
 		Button button_resolve = (Button) findViewById(R.id.btn_resolve);
@@ -109,25 +115,20 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 	@Override
 	public void onClick(View v) {
 		Log.d(TAG, "onClick");
-		Button button = (Button)findViewById(id.btn_resolve);
+//		Button button = (Button)findViewById(id.btn_resolve);
 
 		if (v.getId() == id.btn_resolve) {
 
-			String str = getSpinnerItem() + "-" + getRadioGroupSelected();
-			int value = score.analyzedValue(str);
-			int total = score.addTotal(str);
-			String totalString = String.valueOf(total);
+//			String string = getSpinnerItem() + "-" + getRadioGroupSelected();
+			String valueStr = getSpinnerItem() + "-" + getRadioGroupSelected();
+			int total = score.addTotal(valueStr);
 
-			TextView totalScore = (TextView)findViewById(id.total_score);
-
-			setText(totalString, totalScore);
-
-			int count = throwCounter.add();
-			setThrowText(value, count);
+			setTextTotalScore(total);
+			setTextThrow(valueStr);
 
 			if (throwCounter.isMax()) {
-				Intent intent = makeIntent(KEY_ROUNDS);
-				intent.putExtra(KEY_SCORES, score);
+				Intent intent = makeIntent();
+//				intent.putExtra(KEY_SCORES, score);
 				startActivity(intent);
 			}
 		}
@@ -139,24 +140,37 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 		guiHandler.post(runnable);
 	}
 
-	private void setThrowText(int value, int count) {
-		String valueStr = String.valueOf(value);
-		int value_id = 0;
+	private void setTextTotalScore(int total) {
+//		String totalString = String.valueOf(total);
+		String totalString = score.toString();
+		TextView totalScore = (TextView)findViewById(id.total_score);
+		setText(totalString, totalScore);
+	}
+
+	private void setTextThrow(String valueStr) {
+//		String valueStr = String.valueOf(value);
+		int count = throwCounter.add();
+		TextView throwText = isThrowText(count);
+		setText(valueStr, throwText);
+	}
+
+	private TextView isThrowText(int count) {
+		int throwId = 0;
 
 		if (count == 1) {
-			value_id = id.first_throw_txt;
+			throwId = id.first_throw_txt;
 		}
 
 		if ( count == 2 ) {
-			value_id = id.second_throw_txt;
+			throwId = id.second_throw_txt;
 		}
 
 		if ( count == 3 ) {
-			value_id = id.third_throw_txt;
+			throwId = id.third_throw_txt;
 		}
 
-		TextView textView = (TextView)findViewById(value_id);
-		setText(valueStr, textView);
+		TextView textView = (TextView)findViewById(throwId);
+		return textView;
 	}
 
 	private String getRadioGroupSelected() {
@@ -173,16 +187,16 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 		return item;
 	}
 
-	private Intent makeIntent(String key) {
-		Counter roundCount = (Counter) getPrevCount(key, ROUND_COUNT_MAX);
+	private Intent makeIntent() {
+		Counter roundCount = (Counter) getPrevCount(KEY_ROUNDS, ROUND_COUNT_MAX);
 
 		roundCount.add();
 
-//		Intent next_intent = new Intent(ResultsActivity.this, ResultsActivity.class);
-		Intent next_intent = new Intent(ResultsActivity.this, PlayActivity.class);
-		next_intent.putExtra(key, roundCount);
+		Intent nextIntent = new Intent(this, PlayActivity.class);
+		nextIntent.putExtra(KEY_ROUNDS, roundCount);
+		nextIntent.putExtra(KEY_SCORES, score);
 
-		return next_intent;
+		return nextIntent;
 	}
 
 
