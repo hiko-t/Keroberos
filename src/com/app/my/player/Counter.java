@@ -38,9 +38,9 @@ public class Counter implements Serializable{
 		return false;
 	}
 
-//	public int getCount() {
-//		return count;
-//	}
+	public int getCount() {
+		return count;
+	}
 
 	public String toString() {
 		String count_str = String.valueOf(count);

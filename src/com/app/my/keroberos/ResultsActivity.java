@@ -93,7 +93,6 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-		// TODO 自動生成されたメソッド・スタブ
 		Spinner spinner = (Spinner) parent;
 		String item = (String) spinner.getSelectedItem();
 		Toast.makeText(this, String.format("%sが選択されました。", item), Toast.LENGTH_SHORT).show();
@@ -118,30 +117,30 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 //		Button button = (Button)findViewById(id.btn_resolve);
 
 		if (v.getId() == id.btn_resolve) {
+			onClickResolve();
+		}
+	}
 
-//			String string = getSpinnerItem() + "-" + getRadioGroupSelected();
-			String valueStr = getSpinnerItem() + "-" + getRadioGroupSelected();
-			int total = score.addTotal(valueStr);
+	private void onClickResolve() {
+		String valueStr = getSpinnerItem() + "-" + getRadioGroupSelected();
+		int total = score.addTotal(valueStr);
 
-			setTextTotalScore(total);
-			setTextThrow(valueStr);
+		setTextTotalScore(total);
+		throwCounter.add();
+		setTextThrow(valueStr);
 
-			if (throwCounter.isMax()) {
-				Intent intent = makeIntent();
-//				intent.putExtra(KEY_SCORES, score);
-				startActivity(intent);
-			}
+		if (throwCounter.isMax()) {
+			Intent intent = makeIntent();
+			startActivity(intent);
 		}
 	}
 
 	private void setText(final String text, TextView textView) {
-
 		Runnable runnable = new MyRunnable(textView, text);
 		guiHandler.post(runnable);
 	}
 
 	private void setTextTotalScore(int total) {
-//		String totalString = String.valueOf(total);
 		String totalString = score.toString();
 		TextView totalScore = (TextView)findViewById(id.total_score);
 		setText(totalString, totalScore);
@@ -149,7 +148,8 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 
 	private void setTextThrow(String valueStr) {
 //		String valueStr = String.valueOf(value);
-		int count = throwCounter.add();
+//		throwCounter.add();
+		int count = throwCounter.getCount();
 		TextView throwText = isThrowText(count);
 		setText(valueStr, throwText);
 	}
@@ -190,7 +190,7 @@ public class ResultsActivity extends MyActivity implements OnClickListener, OnCh
 	private Intent makeIntent() {
 		Counter roundCount = (Counter) getPrevCount(KEY_ROUNDS, ROUND_COUNT_MAX);
 
-		roundCount.add();
+		roundCount.add(); 
 
 		Intent nextIntent = new Intent(this, PlayActivity.class);
 		nextIntent.putExtra(KEY_ROUNDS, roundCount);

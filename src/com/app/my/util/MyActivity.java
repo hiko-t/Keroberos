@@ -16,6 +16,10 @@ public class MyActivity extends Activity {
 
 	/**
 	 * インテントから前のカウンタを取得する
+	 *
+	 * @param key
+	 * @param max
+	 * @return
 	 */
 	protected Serializable getPrevCount(String key, int max) {
 		Intent intent = getIntent();
@@ -28,6 +32,11 @@ public class MyActivity extends Activity {
 		return serializable;
 	}
 
+	/**
+	 * @param intent
+	 * @param key
+	 * @return
+	 */
 	protected Score setTextTotalScore(Intent intent, String key) {
 		Score score = (Score) intent.getSerializableExtra(key);
 		if (score == null) {
